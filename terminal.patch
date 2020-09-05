@@ -1,9 +1,9 @@
 
 project build/
-diff --git a/build/qemu.mk b/build/qemu.mk
+diff --git a/qemu.mk b/qemu.mk
 index 038e982..b5cf100 100644
---- a/build/qemu.mk
-+++ b/build/qemu.mk
+--- a/qemu.mk
++++ b/qemu.mk
 @@ -166,16 +166,11 @@ QEMU_SMP ?= 2
  .PHONY: run-only
  run-only:

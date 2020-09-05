@@ -31,5 +31,6 @@ repo init -u https://github.com/OP-TEE/manifest.git -b 3.10.0
 sudo cp ~/optee/qemu/.repo/repo/repo /usr/bin/repo
 repo sync
 cd build
+patch -p1 < ../../terminal.patch
 make toolchains -j2
 make run 
