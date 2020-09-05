@@ -11,3 +11,5 @@ multipass launch --mem <mem> --disk 20G --cpus <cpus> --name optee bionic
 multipass exec opteex -- git clone https://github.com/scalarion/optee.git
 multipass exec opteex -- optee/setup.sh
 ```
+
+Set ```<mem>``` to at least ```2G``` and ```<cpus>```to the number of cpus you want to have in your virtual machine. 
