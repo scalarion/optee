@@ -6,11 +6,8 @@ setup.sh will run OPTEE in a arm7 QUEMU
 
 To setup a clean environment install https://multipass.run and execute following commands from your commandline
 
-```bash
-multipass launch --mem <mem> --disk G --cpus 8 --name opteex bionic
+```Bash
+multipass launch --mem <mem> --disk 20G --cpus <cpus> --name optee bionic
 multipass exec opteex -- git clone https://github.com/scalarion/optee.git
 multipass exec opteex -- optee/setup.sh
 ```
-
-
-
