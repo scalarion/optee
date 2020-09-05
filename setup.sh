@@ -15,7 +15,7 @@ sudo dpkg --add-architecture i386
 
 sudo apt-get update
 
-sudo apt-get install reposudo apt-get install android-tools-adb android-tools-fastboot autoconf \
+sudo apt-get -y install android-tools-adb android-tools-fastboot autoconf \
         automake bc bison build-essential ccache cscope curl device-tree-compiler \
         expect flex ftp-upload gdisk iasl libattr1-dev libc6:i386 libcap-dev \
         libfdt-dev libftdi-dev libglib2.0-dev libhidapi-dev libncurses5-dev \
