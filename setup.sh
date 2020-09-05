@@ -10,6 +10,7 @@ if [ -z ${USEREMAIL} ]; then echo "git user.email must not be empty" && exit 0; 
 
 git config --global user.name $USERNAME
 git config --global user.email $USEREMAIL
+git config --global color.ui true
 
 sudo dpkg --add-architecture i386
 
