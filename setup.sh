@@ -27,8 +27,8 @@ sudo apt-get install reposudo apt-get install android-tools-adb android-tools-fa
 mkdir -p ~/optee/qemu
 cd ~/optee/qemu
 repo init -u https://github.com/OP-TEE/manifest.git -b 3.10.0
-sudo cp ./.repo/repo/repo /usr/bin/repo
+sudo cp ~/optee/qemu/.repo/repo/repo /usr/bin/repo
 repo sync
 cd build
 make toolchains -j2
-make run
+make run -j `npro`
