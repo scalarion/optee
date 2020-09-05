@@ -31,4 +31,4 @@ sudo cp ~/optee/qemu/.repo/repo/repo /usr/bin/repo
 repo sync
 cd build
 make toolchains -j2
-make run -j `npro`
+make run 
