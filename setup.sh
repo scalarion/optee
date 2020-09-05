@@ -5,7 +5,7 @@ read -p "git user.name [${USERNAME}]: " input
 USERNAME=${input:-${USERNAME}}
 echo $USERNAME
 
-if [ -z ${USERNAME+x} ]; then echo "var is unset"; else echo "var is set to '$USERNAME'"; fi
+if [ -z ${USERNAME} ]; then echo "var is unset"; else echo "var is set to '$USERNAME'"; fi
 
 
 #sudo dpkg --add-architecture i386
