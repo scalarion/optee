@@ -1,0 +1,9 @@
+export QEMU_VIRTFS_ENABLE=y
+export QEMU_USERNET_ENABLE=y
+export QEMU_VIRTFS_HOST_DIR=${HOME}/optee
+
+export CROSS_COMPILE=${HOME}/optee/target/toolchains/aarch32/bin/arm-linux-gnueabihf-
+
+export TEEC_EXPORT=${HOME}/optee/target/optee_client/out/export/usr
+
+export TA_DEV_KIT_DIR=${HOME}/optee/target/optee_os/ta

@@ -1,10 +1,10 @@
 
 project build/
 diff --git a/qemu.mk b/qemu.mk
-index 038e982..b5cf100 100644
+index 038e982..0c22250 100644
 --- a/qemu.mk
 +++ b/qemu.mk
-@@ -166,16 +166,11 @@ QEMU_SMP ?= 2
+@@ -166,14 +166,9 @@ QEMU_SMP ?= 2
  .PHONY: run-only
  run-only:
  	ln -sf $(ROOT)/out-br/images/rootfs.cpio.gz $(BINARIES_PATH)/
@@ -16,10 +16,7 @@ index 038e982..b5cf100 100644
  	cd $(BINARIES_PATH) && $(QEMU_PATH)/arm-softmmu/qemu-system-arm \
  		-nographic \
 -		-serial tcp:localhost:54320 -serial tcp:localhost:54321 \
-+		-serial telnet::50001,server -serial telnet::50002 \
++		-serial telnet:localhost:50001,server,nowait -serial telnet:localhost:50002,server,nowait \
  		-smp $(QEMU_SMP) \
--		-s -S -machine virt,secure=on -cpu cortex-a15 \
-+		-s -machine virt,secure=on -cpu cortex-a15 \
+ 		-s -S -machine virt,secure=on -cpu cortex-a15 \
  		-d unimp -semihosting-config enable,target=native \
- 		-m 1057 \
- 		-bios bl1.bin \

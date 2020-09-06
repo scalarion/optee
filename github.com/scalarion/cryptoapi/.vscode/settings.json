@@ -1,0 +1,13 @@
+{
+    "go.gopath": "~/go",
+    "go.goroot": "/snap/go/6274/",
+    "go.toolsEnvVars": {
+        "CC": "~/optee/target/toolchains/aarch32/bin/arm-linux-gnueabihf-gcc",
+        "LD": "~/optee/target/toolchains/aarch32/bin/arm-linux-gnueabihf-ld", 
+        "GOOS": "linux",
+        "GOARCH": "arm",
+        "GOARM": "7",
+        "CGO_ENABLED": "1"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
+}
