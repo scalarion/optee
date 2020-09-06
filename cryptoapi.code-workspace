@@ -1,0 +1,43 @@
+{
+	"folders": [
+		{
+			"path": "cryptoapi/go"
+		},
+		{
+			"path": "cryptoapi/libteesvc"
+		},
+		{
+			"path": "cryptoapi/ta"
+		}
+	],
+	"settings": {
+		"go.gopath": "~/go",
+		"go.toolsEnvVars": {
+    		"GO111MODULE": "auto",
+    		"CC": "~/optee/qemu/toolchains/aarch32/bin/arm-linux-gnueabihf-gcc",
+    		"LD": "~/optee/qemu/toolchains/aarch32/bin/arm-linux-gnueabihf-ld", 
+    		"GOOS": "linux",
+    		"GOARCH": "arm",
+    		"GOARM": "7",
+    		"CGO_ENABLED": "1"
+		},		
+		"go.useLanguageServer": true,
+		"files.associations": {
+			"hello_world_ta.h": "c",
+			"tee_client_api.h": "c",
+			"tee_internal_api.h": "c"
+		},
+		"filewatcher": {
+			"autoClearConsole": false, 
+			"commands": [
+				{
+					"match": "(.\\.[ch]$)|(.\\.go$)",
+					"isAsync": false,
+					"cmd": "echo '${file} changed'; make -C ${workspaceRoot}/.. clean; make -C ${workspaceRoot}/.. all",
+					"event": "onFileChange"
+				}        	
+			]
+		}
+
+	}
+}

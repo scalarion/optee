@@ -16,7 +16,7 @@ BINARY 	:= libteesvc
 
 LIBDIR		:= lib
 BUILDDIR 	:= bin
-SOURCEDIR 	:= src
+SOURCEDIR 	:= .
 HEADERDIR 	:= include
 
 SOURCES := $(wildcard $(SOURCEDIR)/*.c)

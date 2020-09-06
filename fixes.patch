@@ -1,5 +1,17 @@
 
 project build/
+diff --git a/br-ext/board/qemu/post-build.sh b/br-ext/board/qemu/post-build.sh
+index ac46870..5774079 100755
+--- a/br-ext/board/qemu/post-build.sh
++++ b/br-ext/board/qemu/post-build.sh
+@@ -38,6 +38,6 @@ fi
+ if [[ $PSS_AUTOMOUNT == "y" ]]; then
+     mkdir -p "$TARGETDIR"/data/tee
+     grep secure "$TARGETDIR"/etc/fstab > /dev/null || \
+-    echo "secure /data/tee 9p trans=virtio,version=9p2000.L,rw 0 0" >> "$TARGET_DIR"/etc/fstab
++    echo "secure /data/tee 9p trans=virtio,version=9p2000.L,rw 0 0" >> "$TARGETDIR"/etc/fstab
+     echo "[+] persistent secure storage mount added to fstab"
+ fi
 diff --git a/qemu.mk b/qemu.mk
 index 038e982..0c22250 100644
 --- a/qemu.mk

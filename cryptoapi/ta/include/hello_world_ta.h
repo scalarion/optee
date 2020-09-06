@@ -31,10 +31,14 @@
 /*
  * This UUID is generated with uuidgen
  * the ITU-T UUID generator at http://www.itu.int/ITU-T/asn1/uuid.html
+ *
+ * b7747463-bebd-4662-9d5b-7f759cf3100b
  */
+
 #define TA_HELLO_WORLD_UUID \
-	{ 0x8aaaf200, 0x2450, 0x11e4, \
-		{ 0xab, 0xe2, 0x00, 0x02, 0xa5, 0xd5, 0xc5, 0x1b} }
+	{ 0xb7747463, 0xbebd, 0x4662, \
+		{ 0x9d, 0x5b, 0x7f, 0x75, 0x9c, 0xf3, 0x10, 0x0b} }
+
 
 /* The function IDs implemented in this TA */
 #define TA_HELLO_WORLD_CMD_INC_VALUE		0

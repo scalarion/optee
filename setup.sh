@@ -23,7 +23,8 @@ sudo apt-get -y install android-tools-adb android-tools-fastboot autoconf \
         libpixman-1-dev libssl-dev libstdc++6:i386 libtool libz1:i386 make \
         mtools netcat python-crypto python3-crypto python-pyelftools \
         python3-pycryptodome python3-pyelftools python-serial python3-serial \
-        rsync unzip uuid-dev xdg-utils xterm xz-utils zlib1g-dev make repo
+        rsync unzip uuid-dev xdg-utils xterm xz-utils zlib1g-dev libcap-ng-dev \
+        libattr1-dev make repo
 
 
 cd $HOME
@@ -37,8 +38,9 @@ cd $HOME/optee/qemu
 repo init -u https://github.com/OP-TEE/manifest.git -b 3.10.0
 sudo cp $HOME/optee/qemu/.repo/repo/repo /usr/bin/repo
 repo sync
+
 cd build
-patch -p1 < ../../terminal.patch
+patch -p1 < ../../fixes.patch
 
 make toolchains -j2
 echo "export PATH=$PATH:$HOME/optee/qemu/toolchains/aarch32/bin" >> $HOME/.profile
@@ -46,4 +48,10 @@ echo "export PATH=$PATH:$HOME/optee/qemu/toolchains/aarch64/bin" >> $HOME/.profi
 
 source $HOME/.profile
 
-make all
+export QEMU_USERNET_ENABLE=y 
+export QEMU_VIRTFS_ENABLE=y 
+export QEMU_VIRTFS_HOST_DIR=$HOME/optee/cryptoapi 
+export QEMU_VIRTFS_MOUNTPOINT=/root 
+export QEMU_VIRTFS_AUTOMOUNT=y 
+
+make clean all

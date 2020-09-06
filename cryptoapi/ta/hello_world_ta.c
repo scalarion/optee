@@ -111,9 +111,23 @@ static TEE_Result inc_value(
 	if (paramTypes != expParamTypes)
 		return TEE_ERROR_BAD_PARAMETERS;
 
+	TEE_Time start;
+	TEE_Time stop; 
+
+	TEE_GetSystemTime(&start);
 	IMSG("Got value: %u from NW", params[0].value.a);
+	IMSG("Waiting @ %us %ums", start.seconds, start.millis);
+	
+	TEE_Wait(150);
+
 	params[0].value.a++;
-	IMSG("Increase value to: %u", params[0].value.a);
+
+	TEE_Wait(150);
+
+	TEE_GetSystemTime(&stop);
+ 
+	IMSG("Continuing @ %us %ums: %u", stop.seconds, stop.millis, (int32_t)(stop.seconds - start.seconds) * 1000 + (stop.millis-start.millis));
+	IMSG("Updated value to: %u", params[0].value.a);
 
 	return TEE_SUCCESS;
 }
@@ -134,9 +148,22 @@ static TEE_Result dec_value(
 	if (paramTypes != expParamTypes)
 		return TEE_ERROR_BAD_PARAMETERS;
 
+	TEE_Time start;
+	TEE_Time stop; 
+
+	TEE_GetSystemTime(&start);
 	IMSG("Got value: %u from NW", params[0].value.a);
+	IMSG("Waiting @ %us %ums", start.seconds, start.millis);
+	
+	TEE_Wait(150);
+
 	params[0].value.a--;
-	IMSG("Decrease value to: %u", params[0].value.a);
+	
+	TEE_Wait(150);
+
+	TEE_GetSystemTime(&stop);
+	IMSG("Continuing @ %us %ums: %u", stop.seconds, stop.millis, (int32_t)(stop.seconds - start.seconds) * 1000 + (stop.millis-start.millis));
+	IMSG("Updated value to: %u", params[0].value.a);
 
 	return TEE_SUCCESS;
 }
