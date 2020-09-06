@@ -1,8 +1,8 @@
 package teesvc
 
-// #cgo linux,arm CFLAGS: -I../../../../../target/optee_client/out/export/usr/include
+// #cgo linux,arm CFLAGS: -I../../../qemu/optee_client/out/export/usr/include
 // #cgo linux,arm CFLAGS: -I../../libteesvc/include
-// #cgo linux,arm LDFLAGS: -L../../../../../target/optee_client/out/export/usr/lib -lteec
+// #cgo linux,arm LDFLAGS: -L../../../qemu/optee_client/out/export/usr/lib -lteec
 // #cgo linux,arm LDFLAGS: -L../../libteesvc/lib -lteesvc
 // #include "tee_client_api.h"
 // #include "teesvc_x509.h"

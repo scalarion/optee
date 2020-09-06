@@ -1,9 +1,9 @@
 {
     "go.gopath": "~/go",
-    "go.goroot": "/snap/go/6274/",
     "go.toolsEnvVars": {
-        "CC": "~/optee/target/toolchains/aarch32/bin/arm-linux-gnueabihf-gcc",
-        "LD": "~/optee/target/toolchains/aarch32/bin/arm-linux-gnueabihf-ld", 
+        "GO111MODULE": "auto",
+        "CC": "~/optee/qemu/toolchains/aarch32/bin/arm-linux-gnueabihf-gcc",
+        "LD": "~/optee/qemu/toolchains/aarch32/bin/arm-linux-gnueabihf-ld", 
         "GOOS": "linux",
         "GOARCH": "arm",
         "GOARM": "7",

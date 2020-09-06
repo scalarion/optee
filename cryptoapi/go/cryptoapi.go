@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"time"
-
-	"github.com/scalarion/cryptoapi/teesvc"
 )
 
 type signal struct {
