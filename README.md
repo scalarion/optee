@@ -22,6 +22,6 @@ multipass exec optee -- optee/run_tee_terminal.sh
 multipass exec optee -- optee/run.sh
 ```
 
-At the ```(qemu)``` prompt continue execution with ```c```. Login with ```root``` in the REE terminal window and execute the test program with ```./run.sh``` from the root home directory.
+At the ```(qemu)``` prompt continue execution with ```c```. In the REE terminal window login with user ```root``` and execute the test program with ```./run.sh``` from the root home directory.
 
 You may want to install [Visual Studio Code](https://code.visualstudio.com) with [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) extension and connect [Visual Studio Code](https://code.visualstudio.com) to the virtual machine by typing ```Cmd+Shift+P``` and ```Remote-SSH: Connect to Host...``` with ```ssh ubuntu@<xx.xx.xx.xx>``` and password ```ubuntu``` . You then could open the workspace from ```~/optee/cryptoapi/cryptoapi.code-workspace``` to browse the demo project. To experience full convenience with code completion and build on save install [Go for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=golang.Go), [C/C++ for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) and [File Watcher](https://marketplace.visualstudio.com/items?itemName=appulate.filewatcher) extensions.
