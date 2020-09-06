@@ -19,3 +19,4 @@ cryptoapi/ta/dyn_list
 cryptoapi/ta/ta_entry_a32.o
 cryptoapi/ta/ta.lds
 cryptoapi/ta/user_ta_header.o
+cryptoapi/ta/hello_world_ta.o
