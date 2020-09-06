@@ -48,13 +48,6 @@ echo "export PATH=$PATH:$HOME/optee/qemu/toolchains/aarch64/bin" >> $HOME/.profi
 
 source $HOME/.profile
 
-export QEMU_USERNET_ENABLE=y 
-export QEMU_VIRTFS_ENABLE=y 
-export QEMU_VIRTFS_HOST_DIR=$HOME/optee/cryptoapi 
-export QEMU_VIRTFS_MOUNTPOINT=/root 
-export QEMU_VIRTFS_AUTOMOUNT=y 
+make QEMU_USERNET_ENABLE=y QEMU_VIRTFS_ENABLE=y QEMU_VIRTFS_HOST_DIR=$HOME/optee/cryptoapi QEMU_VIRTFS_MOUNTPOINT=/root QEMU_VIRTFS_AUTOMOUNT=y all
 
-make all
-
-cd $HOME/optee/cryptoapi
-make all
+make -C $HOME/optee/cryptoapi all
