@@ -9,5 +9,5 @@
         "GOARM": "7",
         "CGO_ENABLED": "1"
     },
-    "C_Cpp.errorSquiggles": "Disabled"
+    "C_Cpp.errorSquiggles": "Disabled",
 }

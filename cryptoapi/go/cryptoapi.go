@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"time"
+
+	"github.com/scalarion/optee/cryptoapi/go/teesvc"
 )
 
 type signal struct {
