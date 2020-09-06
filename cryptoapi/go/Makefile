@@ -1,3 +1,5 @@
+CROSS_COMPILE		?= arm-linux-gnueabihf-
+
 export CGO_ENABLED	:= 1
 export GOOS 		:= linux
 export GOARCH 		:= arm

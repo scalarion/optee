@@ -1,3 +1,7 @@
+CROSS_COMPILE 	?= arm-linux-gnueabihf-
+PLATFORM		?= vexpress-qemu_virt
+TA_DEV_KIT_DIR  ?= ../../qemu/optee_os/out/arm/export-ta_arm32
+
 CFG_TEE_TA_LOG_LEVEL ?= 4
 
 # The UUID for the Trusted Application

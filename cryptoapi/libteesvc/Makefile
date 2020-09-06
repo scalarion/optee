@@ -1,3 +1,6 @@
+CROSS_COMPILE 	?= arm-linux-gnueabihf-
+TEEC_EXPORT		?= ../../qemu/optee_client/out/export/usr
+
 CC      := $(CROSS_COMPILE)gcc
 LD      := $(CROSS_COMPILE)ld
 AR      := $(CROSS_COMPILE)ar
