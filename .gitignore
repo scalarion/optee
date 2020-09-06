@@ -1,1 +1,10 @@
 qemu
+
+cryptoapi/**/bin
+cryptoapi/**/lib
+
+cryptoapi/ta/.*
+cryptoapi/ta/8aaaf200-2450-11e4-abe2-0002a5d5c51b.*
+cryptoapi/ta/dyn_list
+cryptoapi/ta/*.o
+cryptoapi/ta/ta.lds
