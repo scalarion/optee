@@ -43,8 +43,7 @@ cd build
 patch -p1 < ../../fixes.patch
 
 make toolchains -j2
-echo "export PATH=$PATH:$HOME/optee/qemu/toolchains/aarch32/bin" >> $HOME/.profile
-echo "export PATH=$PATH:$HOME/optee/qemu/toolchains/aarch64/bin" >> $HOME/.profile
+echo "export PATH=$PATH:$HOME/optee/qemu/toolchains/aarch32/bin:$HOME/optee/qemu/toolchains/aarch64/bin" >> $HOME/.profile
 
 source $HOME/.profile
 
