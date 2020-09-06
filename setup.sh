@@ -25,12 +25,25 @@ sudo apt-get -y install android-tools-adb android-tools-fastboot autoconf \
         python3-pycryptodome python3-pyelftools python-serial python3-serial \
         rsync unzip uuid-dev xdg-utils xterm xz-utils zlib1g-dev make repo
 
-mkdir -p ~/optee/qemu
-cd ~/optee/qemu
+
+cd $HOME
+wget https://golang.org/dl/go1.15.1.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.15.1.linux-amd64.tar.gz 
+rm go1.15.1.linux-amd64.tar.gz
+echo "export PATH=$PATH:/usr/local/go/bin" >> $HOME/.profile
+
+mkdir -p $HOME/optee/qemu
+cd $HOME/optee/qemu
 repo init -u https://github.com/OP-TEE/manifest.git -b 3.10.0
-sudo cp ~/optee/qemu/.repo/repo/repo /usr/bin/repo
+sudo cp $HOME/optee/qemu/.repo/repo/repo /usr/bin/repo
 repo sync
 cd build
 patch -p1 < ../../terminal.patch
+
 make toolchains -j2
-make run 
+echo "export PATH=$PATH:$HOME/optee/qemu/toolchains/aarch32/bin" >> $HOME/.profile
+echo "export PATH=$PATH:$HOME/optee/qemu/toolchains/aarch64/bin" >> $HOME/.profile
+
+source $HOME/.profile
+
+make all

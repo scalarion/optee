@@ -1,0 +1,10 @@
+make \
+    CROSS_COMPILE=arm-linux-gnueabihf- \
+    TEEC_EXPORT=$HOME/optee/qemu/optee_client/out/export/usr \
+    --no-builtin-variables
+
+
+make \
+    CROSS_COMPILE=arm-linux-gnueabihf- \
+    PLATFORM=vexpress-qemu_virt \
+    TA_DEV_KIT_DIR=$HOME/optee/qemu/optee_os/out/arm/export-ta_arm32
