@@ -54,7 +54,7 @@ export QEMU_VIRTFS_HOST_DIR=$HOME/optee/cryptoapi
 export QEMU_VIRTFS_MOUNTPOINT=/root 
 export QEMU_VIRTFS_AUTOMOUNT=y 
 
-make clean all
+make all
 
 cd $HOME/optee/cryptoapi
-make clean all
+make all
