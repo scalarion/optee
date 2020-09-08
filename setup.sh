@@ -31,7 +31,7 @@ cd $HOME
 wget https://golang.org/dl/go1.15.1.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go1.15.1.linux-amd64.tar.gz 
 rm go1.15.1.linux-amd64.tar.gz
-echo "export PATH=$PATH:/usr/local/go/bin" >> $HOME/.profile
+echo 'export PATH=$PATH:/usr/local/go/bin' >> $HOME/.profile
 
 mkdir -p $HOME/optee/qemu
 cd $HOME/optee/qemu
@@ -43,10 +43,28 @@ cd build
 patch -p1 < ../../fixes.patch
 
 make toolchains -j2
-echo "export PATH=$PATH:$HOME/optee/qemu/toolchains/aarch32/bin:$HOME/optee/qemu/toolchains/aarch64/bin" >> $HOME/.profile
+echo 'export PATH=$PATH:$HOME/optee/qemu/toolchains/aarch32/bin' >> $HOME/.profile
+echo 'export PATH=$PATH:$HOME/optee/qemu/toolchains/aarch64/bin' >> $HOME/.profile
 
 source $HOME/.profile
 
-make QEMU_USERNET_ENABLE=y QEMU_VIRTFS_ENABLE=y QEMU_VIRTFS_HOST_DIR=$HOME/optee/cryptoapi QEMU_VIRTFS_MOUNTPOINT=/root QEMU_VIRTFS_AUTOMOUNT=y all
+make -C $HOME/optee/qemu/build \
+    QEMU_USERNET_ENABLE=y \
+    QEMU_VIRTFS_ENABLE=y \
+    QEMU_VIRTFS_HOST_DIR=$HOME/optee/cryptoapi \
+    QEMU_VIRTFS_MOUNTPOINT=/root \
+    QEMU_VIRTFS_AUTOMOUNT=y all && \
+make -C $HOME/optee/qemu/optee_os \
+    CFG_TEE_BENCHMARK=n \
+    CFG_TEE_CORE_LOG_LEVEL=3 \
+    CROSS_COMPILE=arm-linux-gnueabihf- \
+    CROSS_COMPILE_core=arm-linux-gnueabihf- \
+    CROSS_COMPILE_ta_arm32=arm-linux-gnueabihf- \
+    CROSS_COMPILE_ta_arm64=aarch64-linux-gnu- \
+    DEBUG=1 \
+    O=out/arm \
+    PLATFORM=vexpress-qemu_virt V=1 && \
+make -C $HOME/optee/qemu/optee_client V=1 && \
+make -C $HOME/optee/cryptoapi all V=1
 
-make -C $HOME/optee/cryptoapi all
+cd $HOME

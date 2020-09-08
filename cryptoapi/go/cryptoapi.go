@@ -42,7 +42,7 @@ func ree() {
 
 func result(c chan signal) {
 	for sig := <-c; !sig.terminate; sig = <-c {
-		fmt.Printf("Go: received value from TEE: %d %d\n", sig.duration.Milliseconds(), sig.value)
+		fmt.Printf("TEE: \"%d\", computing time: %d", sig.duration.Milliseconds(), sig.value)
 	}
 }
 
