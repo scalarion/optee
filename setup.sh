@@ -1,13 +1,18 @@
 #!/bin/bash
 
 # setup git
-USERNAME=$(git config --list | awk -F= '$1=="user.name"{print $2}')
-read -e -p "git user.name [${USERNAME}]: " name && USERNAME=${name:-${USERNAME}}
-if [ -z ${USERNAME} ]; then echo "git user.name must not be empty" && exit 1; fi
+if [ -z "$1" ] && [ -z "$2" ]; then
+    USERNAME=$(git config --list | awk -F= '$1=="user.name"{print $2}')
+    read -e -p "git user.name [${USERNAME}]: " name && USERNAME=${name:-${USERNAME}}
+    if [ -z ${USERNAME} ]; then echo "git user.name must not be empty" && exit 1; fi
 
-USEREMAIL=$(git config --list | awk -F= '$1=="user.email"{print $2}')
-read -e -p "git user.email [${USEREMAIL}]: " mail && USEREMAIL=${mail:-${USEREMAIL}}
-if [ -z ${USEREMAIL} ]; then echo "git user.email must not be empty" && exit 1; fi
+    USEREMAIL=$(git config --list | awk -F= '$1=="user.email"{print $2}')
+    read -e -p "git user.email [${USEREMAIL}]: " mail && USEREMAIL=${mail:-${USEREMAIL}}
+    if [ -z ${USEREMAIL} ]; then echo "git user.email must not be empty" && exit 1; fi
+else
+    USERNAME = $1
+    USERNAME = $2
+fi
 
 echo "setting up git ... " && \
 git config --global user.name $USERNAME && \
