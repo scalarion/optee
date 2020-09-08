@@ -37,7 +37,7 @@ func ree() {
 	fmt.Println("ree enter")
 	for {
 		fmt.Println("REE: !!! ============ howdy ============ !!!")
-		time.Sleep(time.Duration(rand.Intn(100)) * time.Millisecond)
+		time.Sleep(time.Duration(rand.Intn(500)) * time.Millisecond)
 	}
 }
 
