@@ -1,21 +1,28 @@
 #!/bin/bash
 
+# setup git
 USERNAME=$(git config --list | awk -F= '$1=="user.name"{print $2}')
 read -e -p "git user.name [${USERNAME}]: " name && USERNAME=${name:-${USERNAME}}
-if [ -z ${USERNAME} ]; then echo "git user.name must not be empty" && exit 0; fi
+if [ -z ${USERNAME} ]; then echo "git user.name must not be empty" && exit 1; fi
 
 USEREMAIL=$(git config --list | awk -F= '$1=="user.email"{print $2}')
 read -e -p "git user.email [${USEREMAIL}]: " mail && USEREMAIL=${mail:-${USEREMAIL}}
-if [ -z ${USEREMAIL} ]; then echo "git user.email must not be empty" && exit 0; fi
+if [ -z ${USEREMAIL} ]; then echo "git user.email must not be empty" && exit 1; fi
 
-git config --global user.name $USERNAME
-git config --global user.email $USEREMAIL
-git config --global color.ui false
+git config --global user.name $USERNAME && \
+git config --global user.email $USEREMAIL && \
+git config --global color.ui false && \
+echo SUCCESS || exit $?
 
-sudo dpkg --add-architecture i386
+# patch sshd to enable passwd login and restart sshd
+sed 's/#\?\(PasswordAuthentication\s*\).*$/\1 yes/' /etc/ssh/sshd_config > /tmp/sshd_config && \
+sudo mv -f /tmp/sshd_config /etc/ssh/sshd_config && \
+sudo systemctl restart ssh && \
+echo SUCCESS || exit $?
 
-sudo apt-get update
-
+# install dependencies
+sudo dpkg --add-architecture i386 && \
+sudo apt-get update && sudo apt-get upgrade -y && \
 sudo apt-get -y install android-tools-adb android-tools-fastboot autoconf \
         automake bc bison build-essential ccache cscope curl device-tree-compiler \
         expect flex ftp-upload gdisk iasl libattr1-dev libc6:i386 libcap-dev \
@@ -24,30 +31,40 @@ sudo apt-get -y install android-tools-adb android-tools-fastboot autoconf \
         mtools netcat python-crypto python3-crypto python-pyelftools \
         python3-pycryptodome python3-pyelftools python-serial python3-serial \
         rsync unzip uuid-dev xdg-utils xterm xz-utils zlib1g-dev libcap-ng-dev \
-        libattr1-dev make repo
+        libattr1-dev make repo && \
+echo SUCCESS || exit $?
 
-
+# install go
 cd $HOME
-wget https://golang.org/dl/go1.15.1.linux-amd64.tar.gz
-sudo tar -C /usr/local -xzf go1.15.1.linux-amd64.tar.gz 
-rm go1.15.1.linux-amd64.tar.gz
-echo 'export PATH=$PATH:/usr/local/go/bin' >> $HOME/.profile
+wget https://golang.org/dl/go1.15.1.linux-amd64.tar.gz && \
+sudo tar -C /usr/local -xzf go1.15.1.linux-amd64.tar.gz && \
+rm go1.15.1.linux-amd64.tar.gz && \
+echo 'export PATH=$PATH:/usr/local/go/bin' >> $HOME/.profile && \
+source $HOME/.profile && \
+echo SUCCESS || exit $?
 
-mkdir -p $HOME/optee/qemu
-cd $HOME/optee/qemu
-repo init -u https://github.com/OP-TEE/manifest.git -b 3.10.0
-sudo cp $HOME/optee/qemu/.repo/repo/repo /usr/bin/repo
-repo sync
+# get optee sources for qemu arm 32bit
+mkdir -p $HOME/optee/qemu && \
+cd $HOME/optee/qemu && \
+repo init -u https://github.com/OP-TEE/manifest.git -b 3.10.0 && \
+sudo cp $HOME/optee/qemu/.repo/repo/repo /usr/bin/repo && \
+repo sync && \
+echo SUCCESS || exit $?
 
-cd build
-patch -p1 < ../../fixes.patch
+# change the terminal settings for qemu host, REE and TEE to telnet so that
+# terminals can be connected without graphical user interface
+cd build && \
+patch -p1 < ../../fixes.patch && \
+echo SUCCESS || exit $?
 
-make toolchains -j2
-echo 'export PATH=$PATH:$HOME/optee/qemu/toolchains/aarch32/bin' >> $HOME/.profile
-echo 'export PATH=$PATH:$HOME/optee/qemu/toolchains/aarch64/bin' >> $HOME/.profile
+# install the arm toolchains
+make toolchains -j2 && \
+echo 'export PATH=$PATH:$HOME/optee/qemu/toolchains/aarch32/bin' >> $HOME/.profile && \
+echo 'export PATH=$PATH:$HOME/optee/qemu/toolchains/aarch64/bin' >> $HOME/.profile && \
+source $HOME/.profile && \
+echo SUCCESS || exit $?
 
-source $HOME/.profile
-
+# build all
 make -C $HOME/optee/qemu/build \
     QEMU_USERNET_ENABLE=y \
     QEMU_VIRTFS_ENABLE=y \
@@ -65,6 +82,7 @@ make -C $HOME/optee/qemu/optee_os \
     O=out/arm \
     PLATFORM=vexpress-qemu_virt V=1 && \
 make -C $HOME/optee/qemu/optee_client V=1 && \
-make -C $HOME/optee/cryptoapi all V=1
+make -C $HOME/optee/cryptoapi all V=1 && \
+echo SUCCESS || exit $?
 
 cd $HOME
