@@ -9,18 +9,21 @@ USEREMAIL=$(git config --list | awk -F= '$1=="user.email"{print $2}')
 read -e -p "git user.email [${USEREMAIL}]: " mail && USEREMAIL=${mail:-${USEREMAIL}}
 if [ -z ${USEREMAIL} ]; then echo "git user.email must not be empty" && exit 1; fi
 
+echo "setting up git ... " && \
 git config --global user.name $USERNAME && \
 git config --global user.email $USEREMAIL && \
 git config --global color.ui false && \
 echo SUCCESS || exit $?
 
 # patch sshd to enable passwd login and restart sshd
+echo "enabling password login for sshd ... " && \
 sed 's/#\?\(PasswordAuthentication\s*\).*$/\1 yes/' /etc/ssh/sshd_config > /tmp/sshd_config && \
 sudo mv -f /tmp/sshd_config /etc/ssh/sshd_config && \
 sudo systemctl restart ssh && \
 echo SUCCESS || exit $?
 
 # install dependencies
+echo "installing dependencies ... " && \
 sudo dpkg --add-architecture i386 && \
 sudo apt-get update && sudo apt-get upgrade -y && \
 sudo apt-get -y install android-tools-adb android-tools-fastboot autoconf \
@@ -35,7 +38,8 @@ sudo apt-get -y install android-tools-adb android-tools-fastboot autoconf \
 echo SUCCESS || exit $?
 
 # install go
-cd $HOME
+echo "installing go ... " && \
+cd $HOME && \
 wget https://golang.org/dl/go1.15.1.linux-amd64.tar.gz && \
 sudo tar -C /usr/local -xzf go1.15.1.linux-amd64.tar.gz && \
 rm go1.15.1.linux-amd64.tar.gz && \
@@ -44,6 +48,7 @@ source $HOME/.profile && \
 echo SUCCESS || exit $?
 
 # get optee sources for qemu arm 32bit
+echo "getting optee ... " && \
 mkdir -p $HOME/optee/qemu && \
 cd $HOME/optee/qemu && \
 repo init -u https://github.com/OP-TEE/manifest.git -b 3.10.0 && \
@@ -53,11 +58,13 @@ echo SUCCESS || exit $?
 
 # change the terminal settings for qemu host, REE and TEE to telnet so that
 # terminals can be connected without graphical user interface
+echo "patching optee ... " && \
 cd build && \
 patch -p1 < ../../fixes.patch && \
 echo SUCCESS || exit $?
 
 # install the arm toolchains
+echo "installing arm toolchain ... " && \
 make toolchains -j2 && \
 echo 'export PATH=$PATH:$HOME/optee/qemu/toolchains/aarch32/bin' >> $HOME/.profile && \
 echo 'export PATH=$PATH:$HOME/optee/qemu/toolchains/aarch64/bin' >> $HOME/.profile && \
@@ -65,6 +72,7 @@ source $HOME/.profile && \
 echo SUCCESS || exit $?
 
 # build all
+echo "building ... " && \
 make -C $HOME/optee/qemu/build \
     QEMU_USERNET_ENABLE=y \
     QEMU_VIRTFS_ENABLE=y \
@@ -85,4 +93,5 @@ make -C $HOME/optee/qemu/optee_client V=1 && \
 make -C $HOME/optee/cryptoapi all V=1 && \
 echo SUCCESS || exit $?
 
-cd $HOME
+cd $HOME && \
+echo "DONE"
