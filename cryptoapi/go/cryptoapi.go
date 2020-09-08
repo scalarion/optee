@@ -43,7 +43,7 @@ func ree() {
 
 func result(c chan signal) {
 	for sig := <-c; !sig.terminate; sig = <-c {
-		fmt.Printf("TEE: \"%d\", computing time: %d\n", sig.value, sig.duration.Milliseconds())
+		fmt.Printf("TEE: \"%d\", computing time: %dms\n", sig.value, sig.duration.Milliseconds())
 	}
 }
 

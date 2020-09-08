@@ -37,7 +37,12 @@
 					"event": "onFileChange"
 				}        	
 			]
-		}
-
+		},
+		"remote.SSH.defaultExtensions": [
+			"golang.go", 
+			"ms-vscode.cpptools",
+			"appulate.filewatcher",
+			"Gruntfuggly.todo-tree"
+		]
 	}
 }
