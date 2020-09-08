@@ -100,5 +100,6 @@ make -C $HOME/optee/qemu/optee_client V=1 && \
 make -C $HOME/optee/cryptoapi all V=1 && \
 echo SUCCESS || exit $?
 
+# all done
 cd $HOME && \
 echo "DONE"
