@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# enable passwd login, set password of user ubuntu to ubuntu and restart sshd
+echo "enabling password login for sshd ... " && \
+sed 's/#\?\(PasswordAuthentication\s*\).*$/\1 yes/' /etc/ssh/sshd_config > /tmp/sshd_config && \
+sudo mv -f /tmp/sshd_config /etc/ssh/sshd_config && \
+echo "ubuntu:ubuntu" | sudo chpasswd && \
+sudo systemctl restart sshd && \
+echo SUCCESS || exit $?
+
 # setup git
 if [ -z "$1" ] && [ -z "$2" ]; then
     USERNAME=$(git config --list | awk -F= '$1=="user.name"{print $2}')
@@ -19,13 +27,6 @@ echo "setting up git ... " && \
 git config --global user.name $USERNAME && \
 git config --global user.email $USEREMAIL && \
 git config --global color.ui false && \
-echo SUCCESS || exit $?
-
-# patch sshd to enable passwd login and restart sshd
-echo "enabling password login for sshd ... " && \
-sed 's/#\?\(PasswordAuthentication\s*\).*$/\1 yes/' /etc/ssh/sshd_config > /tmp/sshd_config && \
-sudo mv -f /tmp/sshd_config /etc/ssh/sshd_config && \
-sudo systemctl restart ssh && \
 echo SUCCESS || exit $?
 
 # install dependencies
