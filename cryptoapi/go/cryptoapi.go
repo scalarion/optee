@@ -36,14 +36,14 @@ func tee(c chan signal) {
 func ree() {
 	fmt.Println("ree enter")
 	for {
-		fmt.Println("REE: !!! ============ howdy ============ !!!")
+		fmt.Println("REE: ===================== howdy =====================")
 		time.Sleep(time.Duration(rand.Intn(500)) * time.Millisecond)
 	}
 }
 
 func result(c chan signal) {
 	for sig := <-c; !sig.terminate; sig = <-c {
-		fmt.Printf("TEE: \"%d\", computing time: %dms\n", sig.value, sig.duration.Milliseconds())
+		fmt.Printf("TEE: \"%d\", Deep Thought computing time was: %dms\n", sig.value, sig.duration.Milliseconds())
 	}
 }
 
