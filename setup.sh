@@ -5,7 +5,7 @@ echo "enabling password login for sshd ... " && \
 sed 's/#\?\(PasswordAuthentication\s*\).*$/\1 yes/' /etc/ssh/sshd_config > /tmp/sshd_config && \
 sudo mv -f /tmp/sshd_config /etc/ssh/sshd_config && \
 echo "ubuntu:ubuntu" | sudo chpasswd && \
-sudo systemctl restart sshd && \
+sudo systemctl restart ssh && \
 echo SUCCESS || exit $?
 
 # setup git
