@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"time"
 
 	"github.com/scalarion/optee/cryptoapi/go/teesvc"
@@ -35,8 +36,8 @@ func tee(c chan signal) {
 func ree() {
 	fmt.Println("ree enter")
 	for {
-		fmt.Println("!!! ============ howdy ============ !!!")
-		time.Sleep(167 * time.Millisecond)
+		fmt.Println("REE: !!! ============ howdy ============ !!!")
+		time.Sleep(rand.Int31n(150) * time.Millisecond)
 	}
 }
 
