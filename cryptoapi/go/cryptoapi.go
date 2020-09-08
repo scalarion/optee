@@ -21,7 +21,7 @@ func tee(c chan signal) {
 	sig.terminate = false
 	sig.value = 41
 
-	for i := 1; i < 5; i++ {
+	for i := 1; i <= 5; i++ {
 		t := time.Now()
 		sig.value, _ = teesvc.ValidateCertificate(sig.value)
 		sig.duration = time.Since(t)
